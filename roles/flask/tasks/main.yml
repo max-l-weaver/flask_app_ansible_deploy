@@ -16,4 +16,4 @@
   file: path=/etc/ansible/sites-available/default state=absent
 
 - name: copy over inmz redirect file into sites-available
-  copy: path=/home/max/basic_flask_app/roles/flask/files/inmz dest=/etc/nginx/sites-available/
+  copy: src=/home/max/basic_flask_app/roles/flask/files/inmz dest=/etc/nginx/sites-available/
