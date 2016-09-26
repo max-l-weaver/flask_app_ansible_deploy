@@ -1,0 +1,6 @@
+---
+
+- hosts: flaskserver
+  sudo: True
+  roles:
+    - flask
