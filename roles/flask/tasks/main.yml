@@ -11,3 +11,9 @@
   
 - name: Install Flask
   pip: name=flask
+
+- name: Removing default file from /etc/nginx/sites-available
+  file: path=/etc/ansible/sites-available/default state=absent
+
+- name: copy over inmz redirect file into sites-available
+  copy: path=/home/max/basic_flask_app/roles/flask/files/inmz dest=/etc/nginx/sites-available/
