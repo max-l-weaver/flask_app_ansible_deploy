@@ -23,3 +23,9 @@
 
 - name: create inmz symlink between sites-available and sites-enabled
   file: src=/etc/nginx/sites-available/inmz path=/etc/nginx/sites-enabled/nginx state=link
+
+- name: clone basic flask app from git
+  git: repo=https://github.com/max-l-weaver/basic-flask-app.git dest=/home/max/flask_app accept_hostkey=yes force=yes
+
+- name: restart NGINX
+  service: name=nginx state=restarted
