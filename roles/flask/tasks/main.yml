@@ -15,5 +15,11 @@
 - name: Removing default file from /etc/nginx/sites-available
   file: path=/etc/ansible/sites-available/default state=absent
 
+- name: Removing default file from sites-enabled
+  file: path=/etc/nginx/sites-enabled/default state=absent
+
 - name: copy over inmz redirect file into sites-available
   copy: src=/home/max/basic_flask_app/roles/flask/files/inmz dest=/etc/nginx/sites-available/
+
+- name: create inmz symlink between sites-available and sites-enabled
+  file: src=/etc/nginx/sites-available/inmz path=/etc/nginx/sites-enabled/nginx state=link
