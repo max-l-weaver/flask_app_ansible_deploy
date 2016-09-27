@@ -8,3 +8,14 @@
 
 - name: Install MariaDB
   apt: name=mariadb-server state=present allow_unauthenticated=yes
+
+- name: Start MySQL Service
+  service: name=mysql state=started enabled=yes
+
+- name: Install Python MySQL package
+  apt: name=python-mysqldb
+
+
+- name: create a database user
+  mysql_user: name=max password=demo priv=*.*:ALL
+  
