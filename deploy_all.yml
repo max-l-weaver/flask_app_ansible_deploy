@@ -4,3 +4,8 @@
   sudo: True
   roles:
     - flask
+
+- hosts: mariadb
+  sudo: True
+  roles:
+    - mariadb
