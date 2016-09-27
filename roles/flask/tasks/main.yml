@@ -5,6 +5,7 @@
   with_items:
      - nginx
      - git
+     - supervisor
 
 - name: Install pip
   apt: pkg=python-pip update_cache=yes
@@ -21,11 +22,25 @@
 - name: copy over inmz redirect file into sites-available
   copy: src=/home/max/basic_flask_app/roles/flask/files/inmz dest=/etc/nginx/sites-available/
 
+- name: copy over inmz into sites-enabled
+  copy: src=/home/max/basic_flask_app/roles/flask/files/inmz dest=/etc/nginx/sites-enabled/
+
 - name: create inmz symlink between sites-available and sites-enabled
-  file: src=/etc/nginx/sites-available/inmz path=/etc/nginx/sites-enabled/nginx state=link
+  file: src=/etc/nginx/sites-available/inmz path=/etc/nginx/sites-enabled/nginx state=link force=yes
 
 - name: clone basic flask app from git
   git: repo=https://github.com/max-l-weaver/basic-flask-app.git dest=/home/max/flask_app accept_hostkey=yes force=yes
+
+# - command: supervisord
+#  sudo: yes
+- name: Copy over supervisor config file
+  copy: src=/home/max/basic_flask_app/roles/flask/files/supervisord.conf dest=/etc/supervisor/ 
+
+- command: supervisorctl reread
+  sudo: yes
+
+- command: supervisorctl update
+  sudo: yes
 
 - name: restart NGINX
   service: name=nginx state=restarted
